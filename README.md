@@ -1,59 +1,93 @@
-# WeatherApp
+# GitHub Explorer
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.41.
+GitHub Explorer is a minimalist Angular application for exploring public GitHub profiles and repositories. Search for a GitHub username to view profile information, browse repositories, sort them by stars, and load more results as you scroll.
 
-## Development server
+## Features
 
-To start a local development server, run:
+- **GitHub profile search** — Find public GitHub profiles by username.
+- **Profile overview** — View the user's avatar, name, username, bio, followers, following, and public repository count.
+- **Repository browsing** — Explore public repositories with descriptions, programming languages, fork counts, and star counts.
+- **Paginated loading** — Load repositories in pages of 100, with automatic loading as you scroll and a manual **Load more** option.
+- **Repository sorting** — Sort the repositories currently loaded by star count in ascending or descending order.
+- **In-memory caching** — Reuse profile and repository data while navigating between profiles during the current app session.
+- **Error handling** — Present helpful messages for missing users, network failures, unexpected errors, and GitHub API rate limits. Rate-limit responses include a retry time when the API provides one.
+- **Light and dark themes** — Switch themes and retain the selected preference in `localStorage`.
+- **Responsive interface** — Tailwind CSS styling adapts the layout to different screen sizes.
+
+## Built With
+
+- Angular 20
+- TypeScript
+- Tailwind CSS v4
+- RxJS
+- Angular Signals
+- GitHub REST API
+- Jasmine and Karma for unit testing
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js and npm
+- Angular CLI compatible with Angular 20
+
+### Installation
+
+Clone the repository and move into the project directory:
+
+```bash
+git clone https://github.com/unaibnaeem/ng-github-explorer.git
+cd ng-github-explorer
+```
+
+Install the dependencies:
+
+```bash
+npm install
+```
+
+Start the development server:
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Open `http://localhost:4200/` in your browser. The application reloads automatically when source files change.
 
-## Code scaffolding
+## Available Commands
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+| Command                   | Description                                               |
+| ------------------------- | --------------------------------------------------------- |
+| `ng serve`                | Starts the local development server.                      |
+| `ng build`                | Builds the application for production.                    |
+| `ng test`                 | Runs the unit test suite.                                 |
+| `ng test --code-coverage` | Runs the unit tests and generates a code coverage report. |
 
-```bash
-ng generate component component-name
-```
+## GitHub API and Rate Limits
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+The application retrieves public profile and repository data from the GitHub REST API. No API key is required for the basic public-data experience.
 
-```bash
-ng generate --help
-```
+GitHub applies rate limits to API requests. Unauthenticated requests have a lower allowance, so repeated searches and loading multiple repository pages can exhaust the available quota. When that happens, GitHub Explorer displays a rate-limit message and, when available, the time at which requests can be retried.
 
-## Building
+For a deployed application that needs a higher request allowance, route authenticated API requests through a backend or serverless function. Do not place a GitHub personal access token in Angular environment files or other frontend code, because values bundled into a browser application can be inspected by users.
 
-To build the project run:
+## Testing
 
-```bash
-ng build
-```
+The project includes unit tests for the application, search components, profile page, profile store, GitHub API service, and API error handling.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+The latest recorded test run completed with **75 specs and 0 failures**. The corresponding code coverage was:
 
-## Running unit tests
+| Metric     | Coverage |
+| ---------- | -------: |
+| Statements |   99.52% |
+| Branches   |   94.20% |
+| Functions  |     100% |
+| Lines      |   99.51% |
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+Generate an updated coverage report with:
 
 ```bash
-ng e2e
+ng test --code-coverage
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+The report is generated in the `coverage` directory.

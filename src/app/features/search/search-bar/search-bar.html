@@ -1,0 +1,30 @@
+<form (submit)="submit($event)" class="flex w-full gap-2">
+  <label class="relative min-w-0 flex-1">
+    <span class="sr-only">GitHub username</span>
+
+    <span
+      class="pointer-events-none absolute inset-y-0 left-4 flex items-center text-slate-400"
+      aria-hidden="true"
+    >
+      @
+    </span>
+
+    <input
+      type="text"
+      [value]="query()"
+      (input)="onInput($event)"
+      placeholder="Search GitHub username..."
+      autocomplete="off"
+      spellcheck="false"
+      class="focus:border-brand-500 focus:ring-brand-500/10 h-12 w-full rounded-xl border border-slate-200 bg-white pr-4 pl-10 text-sm text-slate-900 transition outline-none placeholder:text-slate-400 focus:ring-2 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+    />
+  </label>
+
+  <button
+    type="submit"
+    [disabled]="!query().trim()"
+    class="bg-brand-600 hover:bg-brand-700 h-12 cursor-pointer rounded-xl px-6 text-sm font-medium text-white transition disabled:cursor-not-allowed disabled:bg-slate-300 dark:disabled:bg-slate-700"
+  >
+    Go
+  </button>
+</form>
